@@ -1,0 +1,7 @@
+FOR entity IN test
+    FOR model IN [entity.expectedModel, entity.serviceModel]
+        FOR characteristic IN model.serviceCharacteristic
+            FILTER characteristic.name == "complexServiceData"
+                FOR client IN characteristic.value.`e2e-client-service`.`domain-client-service`
+                    FILTER client.domain == "Ciena"
+                    RETURN {lbz: client.lbz, `rfs-id`: client.`rfs-id`, `operational-state`: client.`operational-state`, `user-label`: client.`user-label`}
